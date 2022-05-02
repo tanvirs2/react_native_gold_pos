@@ -1,33 +1,44 @@
 
-import {StyleSheet, Text, View, TextInput} from 'react-native';
+import {StyleSheet, Text, View, Pressable} from 'react-native';
 
-export default function CustomInput({value, setValue, placeholder, secureTextEntry}) {
+export default function CustomButton({onPress, text, type="primary", bgColor, fgColor}) {
 
     return (
-        <View style={styles.container}>
-            <TextInput
-                placeholder={placeholder}
-                value={value}
-                onChangeText={setValue}
-                style={styles.input}
-                secureTextEntry={secureTextEntry}
-            />
-        </View>
+        <Pressable
+            onPress={onPress}
+            style={[
+                styles.container,
+                styles[`container_${type}`],
+                bgColor ? {backgroundColor: bgColor} : {}
+            ]}>
+            <Text
+                style={[
+                    styles.text,
+                    styles[`text_${type}`],
+                    fgColor ? {color: fgColor} : {}
+                ]}>{text}</Text>
+        </Pressable>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "#ffffff",
         width: "100%",
-
-        borderColor: "#b9a3a3",
-        borderWidth: 1,
-        borderRadius: 5,
-
+        padding: 15,
         marginVertical: 5,
-        padding: 10,
+        alignItems: "center",
+        borderRadius: 5,
     },
+    container_primary: {
+        backgroundColor: "#2245ff"
+    },
+    container_tertiary: {},
+    text_tertiary: {
+        color: "gray"
+    },
+    text: {
+        fontWeight: "bold",
 
-    input: {}
+        color: "#ffffff"
+    }
 });
