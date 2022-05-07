@@ -1,16 +1,29 @@
+//import {useState} from "react";
 
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import {StyleSheet} from 'react-native';
-import Navigation from "./src/navigation";
-
+import {StyleSheet, Text, TextInput, View} from 'react-native';
+import Navigation from "./src/navigationDrawer";
+//import { useFonts } from 'expo-font';
 
 
 export default function App() {
+
+
+    /*const [loaded] = useFonts({
+        MulishRegular: require('./assets/fonts/Mulish-Regular.ttf'),
+    });*/
+
+
   return (
       <SafeAreaProvider>
-          <Navigation/>
+          <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
+              <Text>hello
+                  @lorem1000
+              </Text>
+              <TextInput/>
+          </View>
+          {/*<Navigation/>*/}
       </SafeAreaProvider>
-
   );
 }
 

@@ -1,25 +1,24 @@
 
 import {View, Text} from "react-native";
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 
 import SignInScreen from "../screens/SignInScreen";
 import SignUpScreen from "../screens/SignUpScreen";
 import HomeScreen from "../screens/HomeScreen";
 
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import {NavigationContainer} from "@react-navigation/native";
-import {createNativeStackNavigator} from "@react-navigation/native-stack";
 
-const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
 
 const Navigation = () => {
     return (
         <NavigationContainer>
-            <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName="SignIn">
-                <Stack.Screen name="SignIn" component={SignInScreen}/>
-                <Stack.Screen name="SignUp" component={SignUpScreen}/>
-                <Stack.Screen name="Home" component={HomeScreen}/>
-            </Stack.Navigator>
+            <Drawer.Navigator screenOptions={{headerShown: false}} initialRouteName="SignIn">
+                <Drawer.Screen name="SignIn" component={SignInScreen}/>
+                <Drawer.Screen name="SignUp" component={SignUpScreen}/>
+                <Drawer.Screen name="Home" component={HomeScreen}/>
+            </Drawer.Navigator>
         </NavigationContainer>
     );
 };
