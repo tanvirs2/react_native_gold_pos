@@ -5,20 +5,22 @@ import {View, Text, Button} from "react-native";
 import SignInScreen from "../screens/SignInScreen";
 import SignUpScreen from "../screens/SignUpScreen";
 import HomeScreen from "../screens/HomeScreen";
+import CameraScreen from "../screens/CameraScreen";
 
 import { createDrawerNavigator,
     DrawerContentComponentProps,
     DrawerContentScrollView,
     DrawerItemList,
     DrawerItem } from '@react-navigation/drawer';
-import {NavigationContainer} from "@react-navigation/native";
+import {NavigationContainer, useNavigation} from "@react-navigation/native";
 
 import Collapsible from 'react-native-collapsible';
 import {Fragment, useState} from "react";
 
-import { Ionicons, AntDesign, FontAwesome5 , Entypo } from '@expo/vector-icons';
+import { Ionicons, AntDesign } from '@expo/vector-icons';
 
 const Drawer = createDrawerNavigator();
+
 
 function CustomDrawerContent(props) {
 
@@ -26,6 +28,7 @@ function CustomDrawerContent(props) {
     const [isPurchaseCollapsed, isSetPurchaseCollapsed] = useState(true);
     const [isDepositCollapsed, isSetDepositCollapsed] = useState(true);
     const [isExpenseCollapsed, isSetExpenseCollapsed] = useState(true);
+    const [isSettingsCollapsed, isSetSettingsCollapsed] = useState(true);
 
     return (
         <DrawerContentScrollView {...props}>
@@ -88,22 +91,39 @@ function CustomDrawerContent(props) {
                 </View>
             </Collapsible>
 
+            <CustomDrawerItem label="Expense" icon={<Ionicons name={isSettingsCollapsed?"settings-outline":"settings"} size={24} color="black" />} isSetCollapsed={isSetSettingsCollapsed} isCollapsed={isSettingsCollapsed} />
+            <Collapsible collapsed={isSettingsCollapsed}>
+                <View>
+
+                    <SubCustomDrawerItem label="Camera Test" route="Camera"/>
+
+                </View>
+            </Collapsible>
+
         </DrawerContentScrollView>
     );
 }
 
-const SubCustomDrawerItem = ({label}) => {
+const SubCustomDrawerItem = ({label, route}) => {
+
+    const navigation = useNavigation();
+
+    const navigateRoute = () => {
+      navigation.navigate(route)
+    }
+
     return (
         <DrawerItem
             label={label}
             style={{
-                backgroundColor: "rgba(243,232,203,0.8)"
+                backgroundColor: "#F3E8CBFF"
             }}
             labelStyle={{
                 textAlign: "center",
-                fontWeight:"bold"
+                fontWeight:"bold",
+                color: "#000"
             }}
-            onPress={() => ''}
+            onPress={navigateRoute}
         />
     );
 }
@@ -155,6 +175,7 @@ const Navigation = () => {
                 }} name="SignIn" component={SignInScreen}/>
                 <Drawer.Screen name="SignUp" component={SignUpScreen}/>
                 <Drawer.Screen name="Home" component={HomeScreen}/>
+                <Drawer.Screen name="Camera" component={CameraScreen}/>
             </Drawer.Navigator>
         </NavigationContainer>
     );
