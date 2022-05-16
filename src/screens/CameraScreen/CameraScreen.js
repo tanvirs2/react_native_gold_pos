@@ -1,36 +1,52 @@
 
-import {StyleSheet, Text, View, Image, useWindowDimensions, ScrollView} from 'react-native';
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import {StyleSheet, Text, View, ScrollView, ActivityIndicator} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-import {useState} from "react";
-import logo from "../../../assets/images/nature-logo.png"
-import CustomInput from "../../components/CustomInput"
-import CustomButton from "../../components/CustomButton";
-import {useNavigation} from "@react-navigation/native";
+import {useEffect, useState} from "react";
+import {Camera, useCameraDevices} from "react-native-vision-camera";
+
+
+const checkCameraPermission = async () => {
+    let status = await Camera.getCameraPermissionStatus();
+    if (status !== 'authorized') {
+        await Camera.requestCameraPermission();
+        status = await Camera.getCameraPermissionStatus();
+        if (status === 'denied') {
+            alert(
+                'You will not be able to scan if you do not allow camera access',
+            );
+        }
+    }
+};
+
 
 export default function CameraScreen() {
 
+    /*const devices = useCameraDevices()
+    const device = devices.back
 
-    const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [passwordRepeat, setPasswordRepeat] = useState('');
+    console.log('ddd');
+    console.log('ddd', devices);
 
-    const navigation = useNavigation();
+    alert('cccc')*/
 
-    const onSignInPressed = () => {
-        //console.warn('Hello')
-        navigation.navigate('SignIn');
-    }
-    const onSignInWithFacebookPressed = () => {
-        console.warn('Hello')
-    }
-    const onSignInWithGooglePressed = () => {
-        console.warn('Hello')
-    }
-    const onSignInWithApplePressed = () => {
-        console.warn('Hello')
-    }
+    /*Camera.getCameraPermissionStatus().then((a,ad)=>{
+        alert('ddd')
+    })*/
+
+    useEffect(()=>{
+
+        checkCameraPermission();
+
+    }, []);
+
+
+
+
+
+
+    //if (device == null) return <ActivityIndicator size="large" color="#0000ff" />
+
 
     return (
         <SafeAreaView>
@@ -38,6 +54,11 @@ export default function CameraScreen() {
             <View style={styles.container}>
                 <Text style={styles.title}>Camera</Text>
 
+                {/*<Camera
+                    style={StyleSheet.absoluteFill}
+                    device={device}
+                    isActive={true}
+                />*/}
 
             </View>
         </ScrollView>

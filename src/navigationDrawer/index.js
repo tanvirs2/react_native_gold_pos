@@ -169,7 +169,7 @@ const CustomDrawerItem = ({label, isSetCollapsed, isCollapsed, icon, dropdown=tr
 const Navigation = () => {
     return (
         <NavigationContainer>
-            <Drawer.Navigator drawerContent={(props)=><CustomDrawerContent {...props } />} screenOptions={{headerShown: false}} initialRouteName="SignIn">
+            <Drawer.Navigator drawerContent={(props)=><CustomDrawerContent {...props } />} screenOptions={{headerShown: false}} initialRouteName="Home">
                 <Drawer.Screen options={{
                     drawerIcon:({ focused, color, size }) => <Ionicons color={color} size={size} name={focused ? 'heart-circle-outline' : 'heart-outline'} />
                 }} name="SignIn" component={SignInScreen}/>
